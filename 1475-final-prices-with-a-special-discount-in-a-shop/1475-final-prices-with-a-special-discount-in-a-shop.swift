@@ -6,7 +6,7 @@ class Solution {
         // 
         
         var ans = [Int]()
-        ans.reserveCapacity(prices.count)
+        //ans.reserveCapacity(prices.count)
         var discount = 0
         for i in 0..<prices.count {
             discount = 0
