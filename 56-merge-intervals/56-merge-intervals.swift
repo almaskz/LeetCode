@@ -11,10 +11,13 @@ class Solution {
         result.append(sorted[0])
         // n
         for i in 1..<sorted.count {
-            if sorted[i][0] <= result[result.count-1][1] {
-                result[result.count-1][1] = max(sorted[i][1], result.last![1])
+            let current = sorted[i]
+            let last = result.last!
+            
+            if current[0] <= last[1] {
+                result[result.count-1][1] = max(current[1], last[1])
             } else {
-                result.append(sorted[i])
+                result.append(current)
             }
         }
         return result
