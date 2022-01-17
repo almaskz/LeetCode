@@ -1,28 +1,27 @@
 class Solution {
     func productExceptSelf(_ nums: [Int]) -> [Int] {
-        // nums =  [1, 2, 3, 4]
-        // pre  =   1  2  6 24
-        // post =  24 24 12  4 
+        // nums =  [-1  1  0  -3  3]
+        //result =   1 -1 -1   0  0
+        //                       0 
         //result = 24 12  8  6
         
-        var prefix = Array(repeating: 1, count: nums.count)        
+        var result = Array(repeating: 1, count: nums.count)        
+        var prefix = 1
+        // nums =   -1  1  0  -3  3
+        //result =   1  1  1   1  1
+        //              i
+        // prefix = 1
         for i in 0..<nums.count {
-            prefix[i] = nums[i] * (i > 0 ? prefix[i-1] : 1)
+            result[i] = prefix
+            prefix *= nums[i]
         }
         
-        var postfix = Array(repeating: 1, count: nums.count)
+        var postfix = 1
         for i in stride(from: nums.count-1, through: 0, by: -1) {
-            postfix[i] *= nums[i] * (i < nums.count-1 ? postfix[i+1] : 1)
+            result[i] *= postfix
+            postfix *= nums[i]
         }
         
-        var result = Array(repeating: 1, count: nums.count)
-        var prefixVal = 1
-        var postfixVal = 1
-        for i in 0..<nums.count {
-            prefixVal = i > 0 ? prefix[i-1] : 1
-            postfixVal = i < nums.count-1 ? postfix[i+1] : 1
-            result[i] = prefixVal * postfixVal
-        }
         return result
     }
 }
