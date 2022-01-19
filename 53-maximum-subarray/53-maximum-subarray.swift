@@ -1,19 +1,41 @@
 class Solution {
     func maxSubArray(_ nums: [Int]) -> Int {
-        //[-2,1,-3,4,-1,2,1,-5,4]
-        //         i
-        // cur = 4
-        // max = 1
-        var cur = 0
-        var result = nums[0]
-        for i in nums {
-            if cur < 0 {
-                cur = 0
-            }
-            cur += i
-            result = max(cur, result)
+        let r = nums.count-1
+        let mid = (0+r)/2
+        
+        return maxSubArray(nums, 0, r)
+    }
+    
+    func maxSubArray(_ arr: [Int], _ l: Int, _ r: Int) -> Int {
+        // base case 
+        if l == r {
+             return arr[l]
         }
         
-        return result
+        let m = (l+r)/2 
+        
+        let left = maxSubArray(arr, l, m)
+        let right = maxSubArray(arr, m+1, r)
+        let center = maxCrossing(arr, l, r, m)
+        
+        return max(left, right, center)
+    }
+    
+    func maxCrossing(_ arr: [Int], _ l: Int, _ r: Int, _ m: Int) -> Int {
+        var maxLeft = arr[m]
+        var cur = maxLeft
+        for i in stride(from: m-1, through: l, by: -1) {
+            cur += arr[i]
+            maxLeft = max(maxLeft, cur)
+        }
+        
+        var maxRight = arr[m+1] 
+        cur = maxRight
+        for i in stride(from: m+2, through: r, by: 1) {
+            cur += arr[i]
+            maxRight = max(maxRight, cur)
+        }
+        
+        return maxLeft+maxRight
     }
 }
