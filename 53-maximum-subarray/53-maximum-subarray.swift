@@ -8,7 +8,7 @@ class Solution {
     
     func maxSubArray(_ arr: [Int], _ l: Int, _ r: Int) -> Int {
         // base case 
-        if l == r {
+        if l >= r {
              return arr[l]
         }
         
