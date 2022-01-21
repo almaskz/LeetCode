@@ -1,9 +1,9 @@
 class Solution {
     func maxSubArray(_ nums: [Int]) -> Int {
         //[5,4,-1,7,8]
-        //   i
-        // cur = 
-        // max = 5
+        //          i
+        // cur = 23
+        // max = 23
         var result = nums[0]
         
         var cur = result
