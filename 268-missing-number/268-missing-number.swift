@@ -16,16 +16,15 @@ class Solution {
         // 0001
         // 0010
      
-        var hash = [Int: Bool]()
-        
-        for i in 0...nums.count {
-            hash[i] = true
+        var sum = 0
+        for i in 1...nums.count {
+            sum += i 
         }
         for i in nums {
-            hash[i] = false
+            sum -= i
         }
         
-        return hash.first(where: { $0.value })!.key
+        return sum
         
         /*
         var result = nums[0]
