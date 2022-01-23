@@ -1,13 +1,15 @@
 class Solution {
     func threeSum(_ nums: [Int]) -> [[Int]] {
-        guard nums.count > 2 else { return [] }
-        var sorted = nums.sorted()
-        //[-1,0,1,2,-1,-4]
-        //[0,0,0]
-        // i l r 
+        //[-1,0,1,2,-1,-4] sum = 0
+        //[-4 -1 -1 0 1 2]
+        //        i l r   
+        // sum = -3
+        // [-1 -1 2] -> [-1 0 1] ->
         
+        guard nums.count > 2 else { return [] }
+        let sorted = nums.sorted()
         var result = [[Int]]()
-        for i in 0..<sorted.count - 2 {
+        for i in 0..<sorted.count-2 {
             if i > 0 && sorted[i] == sorted[i-1] {
                 continue
             }
@@ -20,13 +22,14 @@ class Solution {
                     while l < r && sorted[l] == sorted[l-1] {
                         l += 1
                     }
-                } else if threeSum > 0 {
-                    r -= 1
+                } else if threeSum < 0 {
+                    l += 1                   
                 } else {
-                    l += 1
+                    r -= 1
                 }
             }
         }
+        
         return result
     }
 }
