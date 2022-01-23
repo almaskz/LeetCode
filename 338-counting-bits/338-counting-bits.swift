@@ -23,7 +23,7 @@ class Solution {
         19 -> 10011 = 3
         20 -> 10100 = 2
         */
-        guard n > 0 else { return [0]}
+        guard n > 0 else { return [0] }
         var dp = Array(repeating: 0, count: n+1)
         
         var offset = 1
