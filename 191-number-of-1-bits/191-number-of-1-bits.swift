@@ -3,8 +3,8 @@ class Solution {
         var count = 0
         var a = n
         while a != 0 {
-            a = (a&(a-1))<<1
-            count += 1
+            count += a%2
+            a = a >> 1
         }
         
         return count
