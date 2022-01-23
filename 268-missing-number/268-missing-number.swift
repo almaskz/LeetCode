@@ -16,20 +16,16 @@ class Solution {
         // 0001
         // 0010
      
-        var sum = nums.count
-        for i in 0..<nums.count {
-            sum += (i-nums[i])
-        }
-        
-        return sum
-        
-        /*
         var result = nums[0]
         
         for i in 1..<nums.count {
             result ^= nums[i]
         }
+        for i in 0...nums.count {
+            result ^= i
+        }
+        
         return result
-        */
+        
     }
 }
