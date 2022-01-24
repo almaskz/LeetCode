@@ -1,13 +1,5 @@
 class Solution {
     func maxSubArray(_ nums: [Int]) -> Int {
-        // 0  1  2 3  4 5
-        //[-3 4 -1 2 1 -5]
-        //  l         m        r
-        //[-2 1 -3 4]  []
-        //[-2] left = -2
-        //    [1 -3 4]
-        //    [1] = left = 1
-        //      [-3 4] 
         guard nums.count > 1 else { return nums[0] }
         return maxSubArray(0, nums.count-1, nums)
     }
@@ -26,6 +18,7 @@ class Solution {
         return max(left, right, mid)
     }
     
+    // calculate consistently to the way we split middle, from l -> m-1 and m -> r
     func countMid(_ l: Int, _ m: Int, _ r: Int, _ arr: [Int]) -> Int {
         var resultLeft = 0
         if m-1 >= l {
