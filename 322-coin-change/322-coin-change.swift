@@ -23,7 +23,7 @@ class Solution {
         for coin in coins {
             var diff = target - coin
             let result = numberOfCoins(coins, &diff, &memo)
-            if result >= 0 && result < curMin {
+            if result >= 0 && result < curMin - 1 {
                 curMin = 1 + result   
             }
         }
