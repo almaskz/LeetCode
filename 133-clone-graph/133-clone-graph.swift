@@ -34,10 +34,10 @@ class Solution {
     func bfs(_ node: Node?) -> Node? {
         guard let node = node else { return nil }
         
-        var visited = [Int: Node]()
-        var stack = [Node]()
+        var visited = [Int: Node]()     // holds copies of nodes
+        var stack = [Node]()            // holds original nodes
         
-        stack.append(node)
+        stack.append(node)              
         visited[node.val] = Node(node.val)
         
         while stack.isEmpty == false {
@@ -45,12 +45,19 @@ class Solution {
             
             for nei in curNode.neighbors {
                 guard let nei = nei else { continue }
+                
+                // we already created copy for this node
                 if let copy = visited[nei.val] {
+                    // just append that copy to the neighbors of curNode
                     visited[curNode.val]!.neighbors.append(copy) 
                 } else {
+                    // we need to create a fresh copy
                     let copy = Node(nei.val)
+                    // assign that copy to as visited
                     visited[nei.val] = copy
+                    // append that copy to neighbors of curNode
                     visited[curNode.val]!.neighbors.append(copy)
+                    // add nei to the stack to seach its neighbors
                     stack.append(nei)
                 }
             }
