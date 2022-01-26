@@ -24,8 +24,11 @@ class Solution {
         for pre in prerequisites {
             adj[pre[0], default: [Int]()].append(pre[1])
         }
-        print(adj)
         return adj
+    }
+    
+    func bfs() {
+        
     }
    
     func dfs(_ course: Int, _ visited: inout [Int], _ adj: [Int: [Int]]) -> Bool {
