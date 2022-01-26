@@ -10,9 +10,10 @@ class Solution {
             atlantic
         */
         // 1) dfs from every top and left border cell 
-        //      and mark cells that are reachable true
+        //      and mark cells that are reachable true for pacific ocean
         // 2) dfs from every bottom and right border cell
-        //      and if cell is marked true we add it to the answer
+        //      and mark cells taht are reachable true for atlantic ocean
+        // 3) pacific[row][col] && atlantic[row][col] make to the result
         
         let row = heights.count
         let colm = heights[0].count
@@ -45,8 +46,8 @@ class Solution {
         return result
     }
     
-    // visited[x][y] => cannot flow  - not visited, 
-    //                  can flow - reachable 
+    // visited[x][y] => cannot flow  - false, 
+    //                  can flow - true 
     func dfs(_ row: Int, _ col: Int, _ heights: [[Int]], _ visited: inout [[Bool]]) {
         visited[row][col] = true
         
