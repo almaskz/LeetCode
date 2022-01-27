@@ -12,25 +12,24 @@
 
 class Solution {
     func cloneGraph(_ node: Node?) -> Node? {
-        // will hold copies of the nodes 
-        var visited = [Int: Node]() 
-        return dfs(node, &visited)
+        var visitedCopies = [Int: Node]()
+	    return dfs(node, &visitedCopies)
     }
     
-    func dfs(_ node: Node?, _ visited: inout [Int: Node]) -> Node?{
+    func dfs(_ node: Node?, _ visited: inout [Int: Node]) -> Node? {
         guard let node = node else { return nil }
-        let copy = Node(node.val)
-        visited[node.val] = copy
+
+        visited[node.val] = Node(node.val)
+
         for nei in node.neighbors {
             guard let nei = nei else { continue }
-            if let neiCopy = visited[nei.val] {
-                visited[node.val]?.neighbors.append(neiCopy)
+            if let copyOfNei = visited[nei.val] {
+                visited[node.val]?.neighbors.append(copyOfNei)
             } else {
-                let neiCopy = dfs(nei, &visited)
-                visited[node.val]?.neighbors.append(neiCopy)
+                let copyOfNei = dfs(nei, &visited)
+                visited[node.val]?.neighbors.append(copyOfNei)
             }
         }
-        
         return visited[node.val]
     }
 }
