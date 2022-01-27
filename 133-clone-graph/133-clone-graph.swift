@@ -18,9 +18,7 @@ class Solution {
     }
     
     func dfs(_ node: Node?, _ visited: inout [Int: Node]) -> Node?{
-        
         guard let node = node else { return nil }
-            
         let copy = Node(node.val)
         visited[node.val] = copy
         for nei in node.neighbors {
