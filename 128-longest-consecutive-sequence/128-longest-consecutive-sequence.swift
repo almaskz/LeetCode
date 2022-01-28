@@ -6,8 +6,6 @@ class Solution {
         // count = 4
         // longSeq = 4
         // [ .. 1234 ... 100 ... 200]
-        guard nums.count > 0 else { return 0 }
-        
         let set = Set(nums)
         var longSeq = 0
         
