@@ -12,24 +12,47 @@
 
 class Solution {
     func cloneGraph(_ node: Node?) -> Node? {
-        var visitedCopies = [Int: Node]()
-	    return dfs(node, &visitedCopies)
+        return bfs(node)
     }
     
-    func dfs(_ node: Node?, _ visited: inout [Int: Node]) -> Node? {
+    func bfs(_ node: Node?) -> Node? {
         guard let node = node else { return nil }
 
-        visited[node.val] = Node(node.val)
+    // holds copies
+        var visited = [Int: Node]()	// [] 
 
-        for nei in node.neighbors {
-            guard let nei = nei else { continue }
-            if let copyOfNei = visited[nei.val] {
-                visited[node.val]?.neighbors.append(copyOfNei)
-            } else {
-                let copyOfNei = dfs(nei, &visited)
-                visited[node.val]?.neighbors.append(copyOfNei)
-            }
+        // holds original nodes
+        var queue = [Node]()		// 
+
+        queue.append(node)		// [1]
+        visited[node.val] = Node(node.val)	
+    // [1] - [2, 4]
+    // [2] - [1]
+    // [4] - []
+    // [3] - [] 
+
+        // queue = [4]
+        while queue.isEmpty == false {
+            // for array - O(n), but for queue - O(1)
+            let node = queue.removeFirst()	// []
+
+    // 2 -> [1 , 3]
+    //  	        i 
+            for nei in node.neighbors {
+                guard let nei = nei else { continue }
+                if let copyOfNei = visited[nei.val] {
+                    visited[node.val]?.neighbors.append(copyOfNei)
+                } else {
+                    let copyOfNei = Node(nei.val)
+                    visited[nei.val] = copyOfNei
+                    visited[node.val]?.neighbors.append(copyOfNei)
+                    queue.append(nei)
+                }
+    }
+
         }
+
         return visited[node.val]
     }
+
 }
