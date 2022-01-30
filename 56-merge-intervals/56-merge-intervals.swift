@@ -1,25 +1,31 @@
 class Solution {
     func merge(_ intervals: [[Int]]) -> [[Int]] {
-        guard intervals.count > 1 else { return intervals }
+        // sort by the start time
+        var sorted = intervals.sorted(by: {$0[0] < $1[0]} )
         
-        var result = [[Int]]()
-        result.reserveCapacity(intervals.count)
+        var merged = [[Int]]()
         
-        // nlogn
-        var sorted = intervals.sorted(by: { $0[0] < $1[0] })
+        // 0[1   3] 
+        // 1[1      5]
+        //     2[2    6]     3[8,10]   4[15,18]
+        //   i = 0
         
-        result.append(sorted[0])
-        // n
-        for i in 1..<sorted.count {
-            let current = sorted[i]
-            let last = result.last!
-            
-            if current[0] <= last[1] {
-                result[result.count-1][1] = max(current[1], last[1])
-            } else {
-                result.append(current)
+        var i = 0 
+        while i < sorted.count {
+            var cur = sorted[i]         // [15 18]
+
+            // 0 < 4 && 3 >= 1
+            // 1 < 4 && 5 >= 2
+            // 2 < 4 && 6 >= 8
+            // 3 < 4 && 10 >= 15
+            while i < sorted.count-1 && cur[1] >= sorted[i+1][0] {
+                cur[1] = max(cur[1], sorted[i+1][1])    // cur = [1 6]
+                i += 1                                  // i = 2
             }
+            merged.append(cur)                          // [1 6] [8 10]
+            i += 1                                      // i = 4
         }
-        return result
+        
+        return merged
     }
 }
