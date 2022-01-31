@@ -6,47 +6,25 @@ class Solution {
         //
         // newIntervals = [ [1 2] [3 9] ]
         
-        guard intervals.count > 0 else { return [newInterval] }
-        
+        var new = newInterval
+    
         var newIntervals = [[Int]]()
-            
-        var i = 0
-        var didAppend = false
         
-        //
-        while i < intervals.count {
-            var cur = intervals[i]
-
-            
-            if didAppend == false && cur[0] > newInterval[1] {
-                // edge case
-                newIntervals.append(newInterval)
-                newIntervals.append(cur)
-                i += 1
-                didAppend = true
-            } else if didAppend == false && newInterval[0] <= cur[1] {
-                // new need to insert    
-                let minStart = min(cur[0], newInterval[0])
-                var maxEnd = max(cur[1], newInterval[1])
-                
-                i += 1
-                // get all ends for overlapping intervals
-                while i < intervals.count && intervals[i][0] <= maxEnd {
-                    maxEnd = max(intervals[i][1], maxEnd)
-                    i += 1
-                }
-                newIntervals.append([minStart, maxEnd])
-                didAppend = true
+        for i in 0..<intervals.count {
+            // append the new interval to the begining
+            if new[1] < intervals[i][0] {
+                newIntervals.append(new)
+                return newIntervals + intervals[i..<intervals.count]
+            } else if new[0] > intervals[i][1] {
+                newIntervals.append(intervals[i])
             } else {
-                newIntervals.append(cur)
-                i += 1
+                let minStart = min(new[0], intervals[i][0])
+                let maxEnd = max(new[1], intervals[i][1])
+                new = [minStart, maxEnd]
             }
         }
-        
-        if didAppend == false {
-            newIntervals.append(newInterval)
-        }
-        
+
+        newIntervals.append(new)
         return newIntervals
     }
 }
