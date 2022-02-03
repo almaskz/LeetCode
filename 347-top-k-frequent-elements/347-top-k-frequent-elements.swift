@@ -11,13 +11,14 @@ class Solution {
         var l = 0, r = list.count - 1
         
         /*
-        01234
-        12345
-          m
-        [0..mid][mid+1..]
+        0 1 2
+        1 2 3
+          
+        [0...mid] [mid+1..]
         */
         
         while l < r {
+            // 
             let mid = quickSelect(&list, l, r, freqs)
             if list.count - mid < k {
                 r = mid - 1
