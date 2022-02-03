@@ -20,7 +20,7 @@ class Solution {
             arr.swapAt(pivotIndex, hi)
             var left = lo
             for i in lo..<hi {
-                if arr[i] >= arr[hi] {
+                if arr[i] <= arr[hi] {
                     arr.swapAt(i, left)
                     left += 1
                 }
@@ -36,14 +36,14 @@ class Solution {
             let target = quickSelect(l, r)
             //print("target = \(target)")
             //print(arr)
-            if target + 1 < k {
-                l = target + 1  
-            } else if target + 1 > k {
-                r = target - 1
+            if nums.count - target < k {
+                r = target - 1  
+            } else if nums.count - target > k {
+                l = target + 1
             } else {
-                return arr[target]
+                return arr[nums.count-k]
             }
         }
-        return arr[k-1]
+        return arr[nums.count-k]
     }
 }
