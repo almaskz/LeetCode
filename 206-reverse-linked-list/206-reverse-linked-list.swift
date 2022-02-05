@@ -13,21 +13,16 @@ class Solution {
         var prev: ListNode? = nil
         var cur = head
     
-        /*
-        1->2->3->4->nil
-      p    c
-        
-        temp = 2
-        1->nil
-        nil<-
-        p
+        /**
+        1->2->3->nil
+        p  c 
         */
         
         while cur != nil {
-            let next = cur?.next
-            cur?.next = prev
-            prev = cur
-            cur = next
+            let next = cur?.next    // 2        | 3     | nil 
+            cur?.next = prev        // 1 -> nil | 2->1  | 3->2
+            prev = cur              // p = 1    | p = 2 | p = 3
+            cur = next              // c = 2    | c = 3 | c = nil
         }
         
         return prev
