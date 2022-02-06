@@ -1,54 +1,45 @@
 class Solution {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
-        // dfs
-        
-        var adj = makeGraph(prerequisites)
-        
+        // 0 -> 1 - 2
+        // | \ /
+        // 4<-3
+        guard numCourses > 0 && prerequisites.count > 0 else { return true }
+        var graph = makeGraph(prerequisites)
         var visited = Array(repeating: 0, count: numCourses)
+        
         for i in 0..<numCourses {
-            if visited[i] == 0 {
-                if dfs(i, &visited, adj) == false {
-                    return false
-                }
-            }
-        }
-        return true
-        
-        /*
-        Mark nodes in DFS as in-process (color[v]=1) and as we loops through it's adjacent nodes, if we encounter color[v] == 1 means we found a cycle forming edge, other adjacent nodes where color[v] == 0 DSF(v). Mark nodes as visited (color[v] = 2) only after visiting all it's adjacent nodes. 
-        */
-    }
-    
-    func makeGraph(_ prerequisites: [[Int]]) -> [Int: [Int]] {
-        var adj = [Int: [Int]]()
-        for pre in prerequisites {
-            adj[pre[0], default: [Int]()].append(pre[1])
-        }
-        return adj
-    }
-    
-    func bfs() {
-        
-    }
-   
-    func dfs(_ course: Int, _ visited: inout [Int], _ adj: [Int: [Int]]) -> Bool {
-        visited[course] = 1
-        
-        guard let edges = adj[course] else { 
-            visited[course] = 2
-            return true
-        }
-        for pre in edges {
-            // cycle 
-            if visited[pre] == 1 {
+            if visited[i] == 0 && hasCycle(i, graph, &visited) {
                 return false
-            } else if visited[pre] == 0 {
-                if dfs(pre, &visited, adj) == false {
-                    return false
-                }
             }
         }
-        visited[course] = 2
         return true
-    }    
+    }
+    
+    func makeGraph(_ prereqs: [[Int]]) -> [Int: [Int]] {
+        var graph = [Int: [Int]]()
+        for pre in prereqs {
+            graph[pre[1], default: []].append(pre[0])
+        }
+        return graph
+    }
+    
+    func hasCycle(_ edge: Int, _ graph: [Int: [Int]], _ visited: inout [Int]) -> Bool {
+        visited[edge] = 1
+        
+        guard let allEdges = graph[edge] else { 
+            visited[edge] = 2
+            return false 
+        }
+        
+        for nei in allEdges {
+            if visited[nei] == 1 {
+                return true
+            } else if visited[nei] == 0 && hasCycle(nei, graph, &visited) {
+                return true
+            }
+        }
+        
+        visited[edge] = 2
+        return false
+    }
 }
