@@ -10,49 +10,36 @@
  * }
  */
 
+/*
+visited = 
+
+
+*/
 class Solution {
     func cloneGraph(_ node: Node?) -> Node? {
-        return bfs(node)
+        guard var node = node else { return nil }
+        var visited = [Int: Node]()
+        return dfs(node, &visited)
     }
     
-    func bfs(_ node: Node?) -> Node? {
-        guard let node = node else { return nil }
-
-    // holds copies
-        var visited = [Int: Node]()	// [] 
-
-        // holds original nodes
-        var queue = [Node]()		// 
-
-        queue.append(node)		// [1]
-        visited[node.val] = Node(node.val)	
-    // [1] - [2, 4]
-    // [2] - [1]
-    // [4] - []
-    // [3] - [] 
-
-        // queue = [4]
-        while queue.isEmpty == false {
-            // for array - O(n), but for queue - O(1)
-            let node = queue.removeFirst()	// []
-
-    // 2 -> [1 , 3]
-    //  	        i 
-            for nei in node.neighbors {
-                guard let nei = nei else { continue }
-                if let copyOfNei = visited[nei.val] {
-                    visited[node.val]?.neighbors.append(copyOfNei)
-                } else {
-                    let copyOfNei = Node(nei.val)
-                    visited[nei.val] = copyOfNei
-                    visited[node.val]?.neighbors.append(copyOfNei)
-                    queue.append(nei)
-                }
-    }
-
+    // dfs(1) visited = 1 - [2, 4] -> 2
+    // dfs(2) visited = 2 - [1, 3] -> 3
+    // dfs(3) visited = 3 - [2, 4] -> 4
+    // dfs(4) visited = 4 - [3, 1]
+    func dfs(_ node: Node, _ visited: inout [Int: Node]) -> Node? {
+        let copy = Node(node.val)
+        visited[node.val] = copy
+        
+        for nei in node.neighbors {
+            guard let nei = nei else { continue }
+            if let copyOfNei = visited[nei.val] {
+                copy.neighbors.append(copyOfNei)
+            } else {
+                let copyOfNei = dfs(nei, &visited)
+                copy.neighbors.append(copyOfNei)
+            }
         }
-
-        return visited[node.val]
+        
+        return copy
     }
-
 }
