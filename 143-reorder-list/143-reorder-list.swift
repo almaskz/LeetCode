@@ -18,21 +18,14 @@ class Solution {
         
         
         // 1) Find the middle of the list
-        var slow = head
-        var fast = head?.next
-        
-        while fast != nil && fast?.next != nil {
-            slow = slow?.next
-            fast = fast?.next?.next
-        }
-        
+        var middle = findMiddle(head)
         // create a point for the 2nd half of the original list
-        var second = slow?.next
+        var secondList = middle?.next
         // break 2 lists
-        slow?.next = nil 
+        middle?.next = nil
         
         // 2) reverse the 2nd list    
-        var list2 = reverse(second)
+        var list2 = reverse(secondList)
         
         // 3) merge 2 lists
         var list1 = head
@@ -44,6 +37,17 @@ class Solution {
             list1 = next1
             list2 = next2
         }
+    }
+    
+    func findMiddle(_ node: ListNode?) -> ListNode? {
+        var slow = node
+        var fast = node?.next
+        
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+        return slow
     }
     
     func reverse(_ node: ListNode?) -> ListNode? {
