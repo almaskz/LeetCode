@@ -29,14 +29,7 @@ class Solution {
         
         // 3) merge 2 lists
         var list1 = head
-        while list2 != nil {
-            var next1 = list1?.next
-            var next2 = list2?.next
-            list1?.next = list2
-            list2?.next = next1
-            list1 = next1
-            list2 = next2
-        }
+        merge(&list1, &list2)
     }
     
     func findMiddle(_ node: ListNode?) -> ListNode? {
@@ -61,5 +54,16 @@ class Solution {
             cur = temp
         }
         return prev
+    }
+    
+    func merge(_ list1: inout ListNode?, _ list2: inout ListNode?) {
+        while list2 != nil {
+            var next1 = list1?.next
+            var next2 = list2?.next
+            list1?.next = list2
+            list2?.next = next1
+            list1 = next1
+            list2 = next2
+        }
     }
 }
