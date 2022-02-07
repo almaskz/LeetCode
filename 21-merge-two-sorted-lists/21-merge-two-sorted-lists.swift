@@ -9,35 +9,42 @@
  * }
  */
 class Solution {
-    func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+    func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {        
+        guard var l1 = list1 else { return list2 }
+        guard var l2 = list2 else { return list1 }
+        
+        if l1.val < l2.val {
+            l1.next = mergeTwoLists(l1.next, l2)
+            return l1
+        } else {
+            l2.next = mergeTwoLists(l1, l2.next)
+            return l2
+        }
         /*
-        1->2->4
-        1->3->4
-        */
-        var newHead = ListNode()
-        var cur: ListNode? = newHead
-        var node1 = list1
-        var node2 = list2
+        var head = ListNode()
+        var tail: ListNode? = head
         
-        while node1 != nil && node2 != nil {
-            if node1!.val < node2!.val {
-                cur?.next = node1
-                node1 = node1?.next
+        var l1 = list1
+        var l2 = list2
+        
+        while l1 != nil && l2 != nil {
+            if l1!.val < l2!.val {
+                tail?.next = l1
+                l1 = l1?.next
             } else {
-                cur?.next = node2
-                node2 = node2?.next
+                tail?.next = l2
+                l2 = l2?.next
             }
-            cur = cur?.next
+            tail = tail?.next
         }
         
-        if node1 != nil {
-            cur?.next = node1
+        if l1 != nil {
+            tail?.next = l1
+        } else {
+            tail?.next = l2
         }
         
-        if node2 != nil {
-            cur?.next = node2
-        }
-        
-        return newHead.next
+        return head.next
+        */
     }
 }
