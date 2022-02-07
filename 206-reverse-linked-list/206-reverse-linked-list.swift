@@ -10,16 +10,14 @@
  */
 class Solution {
     func reverseList(_ head: ListNode?) -> ListNode? {
-        var prev: ListNode? = nil
-        var cur = head
+        return recursiveReverse(head, nil)
+    }
+    
+    func recursiveReverse(_ cur: ListNode?, _ prev: ListNode?) -> ListNode? {
+        guard let node = cur else { return prev }
         
-        while cur != nil {
-            let next = cur?.next
-            cur?.next = prev
-            prev = cur
-            cur = next
-        }
-        
-        return prev
+        let next = cur?.next
+        cur?.next = prev
+        return recursiveReverse(next, cur)
     }
 }
