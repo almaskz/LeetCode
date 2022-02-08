@@ -20,18 +20,18 @@ class Solution {
             if val < cur!.val {
                 if cur?.left == nil {
                     cur?.left = TreeNode(val)
-                    break
+                    return root
                 } 
                 cur = cur?.left
             } else {
                 if cur?.right == nil {
                     cur?.right = TreeNode(val)
-                    break
+                    return root
                 }
                 cur = cur?.right
             }
         }
         
-        return root == nil ? TreeNode(val) : root
+        return TreeNode(val)
     }
 }
