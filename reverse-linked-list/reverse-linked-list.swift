@@ -9,16 +9,17 @@
  * }
  */
 class Solution {
+    // nil<-1<-2<-3<-4<-5
+    //    h   
+    // p = 5 
     func reverseList(_ head: ListNode?) -> ListNode? {
-        return recursive(head, nil)
-    }
-    
-    // 1, nil | 
-    func recursive(_ node: ListNode?, _ prev: ListNode?) -> ListNode? {
-        guard let node = node else { return prev }
+        if head == nil || head?.next == nil {
+            return head
+        }   
         
-        let next = node.next
-        node.next = prev
-        return recursive(next, node)
+        var newHead = reverseList(head?.next)
+        head?.next?.next = head
+        head?.next = nil
+        return newHead
     }
 }
