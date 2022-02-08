@@ -1,18 +1,43 @@
 class Solution {
+    /*
+     0 1 2 3
+     2,1,3,5
+         p
+         i
+         l
+    return 2
+    [2 1] [3]
+    */
+    
     func sortArray(_ nums: [Int]) -> [Int] {
         var arr = nums
-        
-        mergeSort(&arr, 0, arr.count-1)
+        quickSort(&arr, 0, nums.count-1)
         return arr
     }
     
-    func mergeSort(_ arr: inout [Int], _ start: Int, _ end: Int) {
+    func quickSort(_ arr: inout [Int], _ start: Int, _ end: Int) {
         if start < end {
-            let mid = start + (end-start+1)/2  
-            mergeSort(&arr, start, mid-1)        
-            mergeSort(&arr, mid, end)
-            merge(&arr,start, mid-1, end)     
+            let p = helper(&arr, start, end)
+            quickSort(&arr, start, p-1)
+            quickSort(&arr, p+1, end)
         }
+    }
+    
+    func helper(_ arr: inout [Int], _ start: Int, _ end: Int) -> Int {
+        var partition = Int.random(in: start..<end)
+        
+        arr.swapAt(partition, end)
+        
+        var l = start
+        for i in start..<end {
+            if arr[i] <= arr[end] {
+                arr.swapAt(i, l)
+                l += 1
+            }
+        }
+        
+        arr.swapAt(l, end)
+        return l
     }
     
     func merge(_ arr: inout [Int], _ start: Int, _ mid: Int, _ end: Int) {
