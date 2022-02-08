@@ -15,15 +15,23 @@
  */
 class Solution {
     func insertIntoBST(_ root: TreeNode?, _ val: Int) -> TreeNode? {
-        if root == nil {
-            return TreeNode(val)
-        } else {
-            if root!.val < val {
-                root?.right = insertIntoBST(root?.right, val)
+        var cur = root
+        while cur != nil {
+            if val < cur!.val {
+                if cur?.left == nil {
+                    cur?.left = TreeNode(val)
+                    break
+                } 
+                cur = cur?.left
             } else {
-                root?.left = insertIntoBST(root?.left, val)
+                if cur?.right == nil {
+                    cur?.right = TreeNode(val)
+                    break
+                }
+                cur = cur?.right
             }
-            return root
         }
+        
+        return root == nil ? TreeNode(val) : root
     }
 }
