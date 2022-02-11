@@ -10,24 +10,22 @@
  *         self.val = val
  *         self.left = left
  *         self.right = right
- *     }
+ *     }true 
  * }
  */
 class Solution {
     func isValidBST(_ root: TreeNode?) -> Bool {
-        return dfs(root, nil, nil)
-    }
-    
-    func dfs(_ node: TreeNode?, _ min: Int?, _ max: Int?) -> Bool {
-        guard let node = node else { return true }
+        var prev: Int? = nil
         
-        if (min == nil || node.val > min!) && (max == nil || node.val < max!) {
-            var left = dfs(node.left, min, node.val)
-            var right = dfs(node.right, node.val, max)
-            return left && right
-        } else {
-            return false
+        func inorder(_ node: TreeNode?) -> Bool {
+            guard let node = node else { return true }
+
+            if inorder(node.left) == false { return false }
+            if prev != nil && prev! >= node.val { return false }
+            prev = node.val
+            return inorder(node.right)
         }
         
+        return inorder(root)
     }
 }
