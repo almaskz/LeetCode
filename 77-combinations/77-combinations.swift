@@ -29,8 +29,8 @@ class Solution {
             ans.append(cur)
             return
         }
-        
-        for i in start..<n+1 {
+        guard start <= n else { return }
+        for i in start...n {
             cur.append(i)
             backtrack(i+1, &cur)
             cur.removeLast()
