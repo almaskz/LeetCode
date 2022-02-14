@@ -40,15 +40,14 @@ class Solution {
             return
         }
         
-        if open < n {
-            cur.append("(")
-            backtrack(&cur, open+1, close)
-            cur.removeLast()
-        }
-        
-        if close < open {
-            cur.append(")")
-            backtrack(&cur, open, close+1)
+        let arr = validCandidates(open, close)
+        for i in arr {
+            cur.append(i)
+            if i == "(" {
+                backtrack(&cur, open+1, close)
+            } else {
+                backtrack(&cur, open, close+1)
+            }
             cur.removeLast()
         }
         // iterate throught all candidates
@@ -58,9 +57,11 @@ class Solution {
     }
     
     func validCandidates(_ open: Int, _ close: Int) -> [String] {
-        if open < n {
+        if open < n && close < open {
             return ["(", ")"]
-        } else if close < n {
+        } else if open < n {
+            return ["("]
+        } else if close < open {
             return [")"]
         } else {
             return []
