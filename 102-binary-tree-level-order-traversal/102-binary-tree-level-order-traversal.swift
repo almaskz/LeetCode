@@ -14,32 +14,25 @@
  * }
  */
 class Solution {
+    var levels = [[Int]]()
     func levelOrder(_ root: TreeNode?) -> [[Int]] {
-        guard let node = root else { return [[Int]]() }
-        
-        var stack = [TreeNode]()        
-        var ans = [[Int]]()
-        
-        stack.append(node)
-        while stack.isEmpty == false {
-            let levelSize = stack.count
-            var result = [Int]()
-            result.reserveCapacity(levelSize)
-            
-            for i in 0..<levelSize {
-                let cur = stack.removeFirst()
-                result.append(cur.val)
-                if let left = cur.left {
-                    stack.append(left)
-                }
-                if let right = cur.right {
-                    stack.append(right)
-                }
-            }
-            ans.append(result)
+        guard let node = root else { return levels }
+        helper(node, 0)
+        return levels
+    }
+    
+    func helper(_ node: TreeNode, _ level: Int) {
+        if levels.count == level {
+            levels.append([Int]())
         }
+        levels[level].append(node.val)
         
-        return ans
+        if let left = node.left {
+            helper(left, level+1)
+        }
+        if let right = node.right {
+            helper(right, level+1)
+        }
     }
  
 }
