@@ -14,29 +14,27 @@
 
 class Solution {
     func treeToDoublyList(_ root: Node?) -> Node? {
-        var first: Node?
-        var last: Node?
-        helper(root, &first, &last)
-        
-        first?.left = last
-        last?.right = first
-        
-        return first
+        var head: Node? = nil
+        var tail: Node? = nil
+        var node = root
+        recurse(node, &head, &tail)
+        head?.left = tail
+        tail?.right = head
+        return head
     }
-    // 4, nil, nil <-
-    // 2, nil, nil 
-    func helper(_ node: Node?, _ first: inout Node?, _ last: inout Node?) {
-        guard let node = node else { return }
+    
+    func recurse(_ node: Node?, _ head: inout Node?, _ tail: inout Node?) {
+        guard var node = node else { return }
         
-        helper(node.left, &first, &last)
+        recurse(node.left, &head, &tail)
         
-        if last != nil {            // 
-            last?.right = node      // 1->right = 2 | 2->right = 3
-            node.left = last       // 2->left = 1  | 3->left = 2 
+        if tail != nil {
+            tail?.right = node
+            node.left = tail
         } else {
-            first = node            // first = 1 
+            head = node
         }
-        last = node                 // last = 1 | 2  | 3 
-        helper(node.right, &first, &last)       // 3, 1, 2 
+        tail = node
+        recurse(node.right, &head, &tail)
     }
 }
