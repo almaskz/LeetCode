@@ -14,17 +14,15 @@ class Solution {
     // [2 3], "", 0
     // ans = ["ad"],  
     func backtrack(_ nums: [Character], _ comb: inout String, _ digit: Int) {
-        if comb.count == nums.count {
+        if digit == nums.count {
             ans.append(comb)
             return 
         }
-        for i in digit..<nums.count {           // 1
-            var candidates = helper(nums[i])    // 2->abc | 3->def
-            for ch in candidates {              // a | d | e
-                comb.append(ch)                 // comb = ae
-                backtrack(nums, &comb, i+1) // [23], "a", 1 | [23], "ad", 2 
-                comb.removeLast()               // comb = "a"
-            }
+        var candidates = helper(nums[digit])       
+        for ch in candidates {              // a | d | e
+            comb.append(ch)                 // comb = ae
+            backtrack(nums, &comb, digit+1) // [23], "a", 1 | [23], "ad", 2 
+            comb.removeLast()               // comb = "a"
         }
     }
     
