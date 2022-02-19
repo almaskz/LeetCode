@@ -14,7 +14,7 @@ class Solution {
     // [2 3], "", 0
     // ans = ["ad"],  
     func backtrack(_ nums: [Character], _ comb: inout String, _ digit: Int) {
-        if digit == nums.count {
+        if comb.count == nums.count {
             ans.append(comb)
             return 
         }
