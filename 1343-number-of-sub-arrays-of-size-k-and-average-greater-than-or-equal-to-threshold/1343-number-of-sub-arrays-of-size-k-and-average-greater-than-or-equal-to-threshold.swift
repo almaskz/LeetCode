@@ -8,7 +8,7 @@ class Solution {
             sum += arr[i]
         }
         
-        var average = getAvg(sum, k)
+        var average = Double(sum)/Double(k)
         if average >= Double(threshold) {
             counter += 1
         }
@@ -16,15 +16,11 @@ class Solution {
         for i in k..<arr.count {
             sum -= arr[i-k]
             sum += arr[i]
-            average = getAvg(sum, k)
+            average = Double(sum)/Double(k)
             if average >= Double(threshold) {
                 counter += 1
             }
         }
         return counter
-    }
-    
-    func getAvg(_ sum: Int, _ n: Int) -> Double {
-        return Double(sum)/Double(n)
     }
 }
