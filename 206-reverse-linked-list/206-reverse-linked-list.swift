@@ -13,7 +13,17 @@ class Solution {
         //   1<-2<-3<-4<-5   <- | ->
         //nil<-1  2->3->4<-5->nil
         //  p  c  n
-        return iterative(head)
+        var prev: ListNode?
+        return recursive(head, prev)
+    }
+    
+    func recursive(_ node: ListNode?, _ prev: ListNode?) -> ListNode? {
+        if node == nil {
+            return prev
+        }
+        var next = node?.next
+        node?.next = prev
+        return recursive(next, node)
     }
     
     func iterative(_ node: ListNode?) -> ListNode? {
