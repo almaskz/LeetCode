@@ -13,8 +13,8 @@ class Solution {
         //   1<-2<-3<-4<-5   <- | ->
         //nil<-1  2->3->4<-5->nil
         //  p  c  n
-        var prev: ListNode?
-        return recursive(head, prev)
+        //var prev: ListNode?
+        return iterative(head)
     }
     
     func recursive(_ node: ListNode?, _ prev: ListNode?) -> ListNode? {
@@ -29,9 +29,9 @@ class Solution {
     func iterative(_ node: ListNode?) -> ListNode? {
         var prev: ListNode? = nil
         var cur = node
-        
+        var next: ListNode?
         while cur != nil {
-            let next = cur?.next
+            next = cur?.next
             cur?.next = prev
             prev = cur
             cur = next
