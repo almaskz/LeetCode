@@ -2,15 +2,26 @@ class Solution {
     func missingNumber(_ nums: [Int]) -> Int {
         // cyclic sort
         
-        // 0  1 2
-        // [2,1,3]
-        //    i
+        //  0 1 2 3 4 5 6 7 8
+        // [1,0,2,3,4,5,6,7,9]
+        //                  i
         // if inPlace == -1 => return n
         //    index = 2 return index
         //
-        
-        let gaussSum = nums.count*(nums.count+1)/2
-        let actualSum = nums.reduce(0, +)
-        return gaussSum-actualSum
+        var arr = nums
+        var i = 0
+        while i < nums.count {
+            if arr[i] < nums.count && arr[i] != i {
+                arr.swapAt(i, arr[i])    
+            } else {
+                i += 1
+            }
+        }
+        for i in 0..<arr.count {
+            if arr[i] != i {
+                return i
+            }
+        }
+        return arr.count
     }
 }
