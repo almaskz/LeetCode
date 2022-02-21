@@ -10,17 +10,24 @@
  */
 class Solution {
     func reverseBetween(_ head: ListNode?, _ left: Int, _ right: Int) -> ListNode? {
-        var dymmy: ListNode? = ListNode(0, head)
+        var dummy = ListNode(0, head)
         
-        var startP = dymmy
+        //nil<|
+        // 1->2<-3<-4  5->nil   left = 2; right = 4
+        //             c
+        //             n
+        //          p
+        // s
+        
+        // get to the left node
+        var startP: ListNode? = dummy
         var cur = head
         for i in 0..<left-1 {
             startP = cur
             cur = cur?.next
         }
-        
-        var prev: ListNode?
-        
+        // reverse from left to right
+        var prev: ListNode? = nil
         for i in left...right {
             let next = cur?.next
             cur?.next = prev
@@ -28,13 +35,10 @@ class Solution {
             cur = next
         }
         
+        // connect ends from left and right
         startP?.next?.next = cur
-        startP?.next = prev
+        startP?.next = prev 
         
-        //      |
-        //   1->2<-3<-4  5->nil
-        //         p  c  n
-        //   sP
-        return dymmy?.next
+        return dummy.next
     }
 }
