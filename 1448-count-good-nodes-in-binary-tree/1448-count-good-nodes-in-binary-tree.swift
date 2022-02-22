@@ -16,23 +16,19 @@
 class Solution {
     
     func goodNodes(_ root: TreeNode?) -> Int {
-        guard let node = root else { return 0 }
-        var count = 0
-        
-        func countGoodNodes(_ node: TreeNode, _ curMax: Int) {
-            if node.val >= curMax {
-                count += 1
-            }
+        func countGoodNodes(_ node: TreeNode?, _ curMax: Int) -> Int {
+            guard let node = node else { return 0 }    
             
-            if let left = node.left {
-                countGoodNodes(left, max(left.val, curMax))
+            let left = countGoodNodes(node.left, max(node.val, curMax))
+            let right = countGoodNodes(node.right, max(node.val, curMax))
+            var cur = 0
+            if node.val >= curMax {
+                cur += 1
             }
-            if let right = node.right {
-                countGoodNodes(right, max(right.val, curMax))
-            }
+            return cur + left + right
         }
         
-        countGoodNodes(node, node.val)
-        return count
+        guard let node = root else { return 0 }    
+        return countGoodNodes(node, node.val)
     }
 }
