@@ -15,10 +15,7 @@
  */
 class Solution {
     func isBalanced(_ root: TreeNode?) -> Bool {
-        let left = helper(root?.left)
-        let right = helper(root?.right)
-        
-        return left.b && right.b && abs(left.h-right.h) <= 1
+        return helper(root).b
     }
     
     func helper(_ node: TreeNode?) -> (h: Int, b: Bool) {
