@@ -3,8 +3,8 @@ class Solution {
         //[1,2,3,4,5,6,7,8,9,10] days = 5
         // min load = 10
         // max load = sum of weights = 55 / 5 = (18+1)=19
-        var lo = maxIn(weights)
-        var hi = sum(weights, days)
+        var lo = weights.max() ?? 0
+        var hi = weights.reduce(0, +)
         
         while lo < hi {
             let mid = lo + (hi-lo)/2
@@ -16,22 +16,6 @@ class Solution {
         }
         
         return lo
-    }
-    
-    func maxIn(_ weights: [Int]) -> Int {
-        var maxSoFar = weights[0]
-        for i in weights {
-            maxSoFar = max(maxSoFar, i)
-        }
-        return maxSoFar
-    }
-    
-    func sum(_ weights: [Int], _ days: Int) -> Int {
-        var sum = 0
-        for i in weights {
-            sum += i
-        }
-        return sum
     }
     
     func condition(_ capacity: Int, _ weights: [Int], _ days: Int) -> Bool {
