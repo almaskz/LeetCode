@@ -5,19 +5,17 @@
 
 class Solution : VersionControl {
     func firstBadVersion(_ n: Int) -> Int {
-        var l = 1
-        var r = n
-        // [1 ... mid-1] [mid...]
+        var left = 1
+        var right = n
         
-        while l < r {
-            let mid = l + (r-l+1)/2
+        while left < right {
+            let mid = left + (right-left)/2
             if isBadVersion(mid) {
-                r = mid - 1
+                right = mid
             } else {
-                l = mid
+                left = mid + 1
             }
         }
-        
-        return isBadVersion(l) ? l : l + 1
+        return left
     }
 }
