@@ -17,6 +17,14 @@ class Solution {
         return lo
     }
     
+    func getAvg(_ piles: [Int], _ h: Int) -> Int {
+        var avg = 0
+        for pile in piles {
+            avg += pile/h
+        }
+        return avg
+    }
+    
     // 10
     func condition(_ speed: Int, _ piles: [Int], _ h: Int) -> Bool {
         var curHours = 0
