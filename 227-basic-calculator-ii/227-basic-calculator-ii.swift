@@ -1,8 +1,9 @@
 class Solution {
     func calculate(_ s: String) -> Int {
-        var stack = [Int]()
-        var currentNumber = 0
-        var operation = "+"
+        var lastNum = 0 
+        var curNum = 0
+        var result = 0
+        var sign = "+"
         var l = 0
         var arr = Array(s)
         //"3+2*2"
@@ -19,29 +20,28 @@ class Solution {
                     l += 1
                 }
                 l -= 1
-                currentNumber = num
+                curNum = num
             } 
-            if arr[l] == "*" || arr[l] == "/" || arr[l] == "+" || arr[l] == "-"  || l == arr.count - 1 {
-                if operation == "*" {
-                    let lastNum = stack.removeLast()
-                    stack.append(lastNum*currentNumber)
-                } else if operation == "/" {
-                     let lastNum = stack.removeLast()
-                    stack.append(lastNum/currentNumber)
-                } else if operation == "+" {
-                    stack.append(currentNumber)
-                } else if operation == "-" {
-                    stack.append((-1)*currentNumber)
+            if  arr[l] == "*" || arr[l] == "/" ||
+                arr[l] == "+" || arr[l] == "-"  || 
+                l == arr.count - 1 {
+                if sign == "*" {
+                    lastNum *= curNum
+                } else if sign == "/" {
+                    lastNum /= curNum
+                } else if sign == "+" {
+                    result += lastNum
+                    lastNum = curNum
+                } else if sign == "-" {
+                    result += lastNum
+                    lastNum = -(curNum)
                 }
-                operation = String(arr[l])
-                currentNumber = 0
+                sign = String(arr[l])
+                curNum = 0
             }
             l += 1
         }
-        currentNumber = 0
-        while stack.isEmpty == false {
-            currentNumber += stack.removeLast()
-        }
-        return currentNumber
+        result += lastNum
+        return result
     }
 }
