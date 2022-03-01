@@ -38,7 +38,6 @@ class Solution {
                 }
                 
                 prevOp = String(arr[l])
-                //curNum = 0
             }
             l += 1
         }
