@@ -3,7 +3,12 @@ class Solution {
         var str = Array(s)
         var pattern = Array(p)
         
+        var cache = [String: Bool]() 
+        
         func recursive(_ i: Int, _ j: Int) -> Bool {
+            if let inCache = cache["\(i),\(j)"] {
+                return inCache
+            }
             //base cases
             if i >= str.count && j >= pattern.count {
                 return true
@@ -17,12 +22,15 @@ class Solution {
             if (j + 1 < pattern.count && pattern[j+1] == "*") {
                 // 1. dont use the "*"
                 // 2. use the "*" only if we have a match of s[i] == p[j]
-                return recursive(i, j+2) || (match && recursive(i+1, j))
+                cache["\(i),\(j)"] = recursive(i, j+2) || (match && recursive(i+1, j))
+                return cache["\(i),\(j)"]!
             }
             if match {
-                return recursive(i+1, j+1)
+                cache["\(i),\(j)"] = recursive(i+1, j+1)
+                return cache["\(i),\(j)"]!
             } else{
-                return false    
+                cache["\(i),\(j)"] = false
+                return cache["\(i),\(j)"]!
             }
         }
         
