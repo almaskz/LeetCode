@@ -1,39 +1,26 @@
 class Solution {
     func countBits(_ n: Int) -> [Int] {
-        /*
-        0 --> 00000 = 0 
-        1 --> 00001 = 1 => offset = 1 
-        2 --> 00010 = 1 => offset = 2
-        3 --> 00011 = 2 => 
-        4 --> 00100 = 1 => offset = 4 
-        5 --> 00101 = 2 => offset = 4
-        6 --> 00110 = 2 => offset = 4 
-        7 --> 00111 = 3 => offset = 4 
-        8 --> 01000 = 1 => offset = 8
-        9 --> 01001 = 2 
-        10 -> 01010 = 2
-        11 -> 01011 = 3
-        12 -> 01100 = 2
-        13 -> 01101 = 3
-        14 -> 01110 = 3
-        15 -> 01111 = 4
-        16 -> 10000 = 1
-        17 -> 10001 = 2
-        18 -> 10010 = 2
-        19 -> 10011 = 3
-        20 -> 10100 = 2
-        */
-        guard n > 0 else { return [0] }
-        var dp = Array(repeating: 0, count: n+1)
-        
-        var offset = 1
-        for i in 1...n {
-            if offset * 2 == i {
-                offset = i
-            }
-            dp[i] = 1 + dp[i-offset]
+        // f[0] = 0 // 0
+        // f[1] = 1 // 1
+        // f[2] = 1 // 10
+        // f[3] = 2 // 11
+        // f[4] = 1 // 100
+        // f[5] = 2 // 101
+        // f[6] =  
+        var ans = Array(repeating: 0, count: n+1)
+        for i in 0...n {
+            ans[i] = getBits(i)
         }
-        
-        return dp
+        return ans
+    }
+    
+    func getBits(_ n: Int) -> Int {
+        var count = 0
+        var num = n
+        while num > 0 {
+            count += (num % 2)
+            num /= 2
+        }
+        return count
     }
 }
