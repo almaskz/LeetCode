@@ -15,7 +15,7 @@
  */
 class Solution {
     func maxDepth(_ root: TreeNode?) -> Int {
-        return helper(root, 0)
+        return bfs(root)
     }
     
     func helper(_ node: TreeNode?, _ depth: Int) -> Int {
@@ -25,5 +25,27 @@ class Solution {
         let right = helper(node.right, depth+1)
         
         return left > right ? left : right
+    }
+    
+    func bfs(_ node: TreeNode?) -> Int {
+        guard let node = node else { return 0 }
+        var queue = [TreeNode]()
+        var distance = 0
+        queue = [node]
+        
+        while queue.isEmpty == false {
+            var nextQueue = [TreeNode]()
+            for item in queue {
+                if let left = item.left {
+                    nextQueue.append(left)
+                }   
+                if let right = item.right {
+                    nextQueue.append(right)
+                }
+            }
+            distance += 1
+            queue = nextQueue
+        }
+        return distance
     }
 }
