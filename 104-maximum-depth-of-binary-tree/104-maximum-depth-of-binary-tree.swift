@@ -15,7 +15,7 @@
  */
 class Solution {
     func maxDepth(_ root: TreeNode?) -> Int {
-        return bfs(root)
+        return helper(root, 0)
     }
     
     func helper(_ node: TreeNode?, _ depth: Int) -> Int {
@@ -24,7 +24,7 @@ class Solution {
         let left = helper(node.left, depth+1)
         let right = helper(node.right, depth+1)
         
-        return left > right ? left : right
+        return max(left, right)
     }
     
     func bfs(_ node: TreeNode?) -> Int {
