@@ -15,16 +15,13 @@
  */
 class Solution {
     func invertTree(_ root: TreeNode?) -> TreeNode? {
-        dfs(root)
-        return root
-    }
-    
-    func dfs(_ node: TreeNode?) {
-        guard let node = node else { return }
-        let right = node.right
-        node.right = node.left
+        guard let node = root else { return nil }
+        
+        let left = invertTree(node.left)
+        let right = invertTree(node.right)
+        
         node.left = right
-        dfs(node.left)
-        dfs(node.right)
+        node.right = left
+        return node
     }
 }
