@@ -14,25 +14,26 @@
  * }
  */
 class Solution {
-    var maxSoFar = Int.min                      //  42
-    
-    // -10
     func maxPathSum(_ root: TreeNode?) -> Int {
-        let _ = helper(root)
-        return maxSoFar
+        var maxPath = Int.min
+        let maxPathCountingRoot = helper(root, &maxPath)
+        return maxPath
     }
     
-    func helper(_ root: TreeNode?) -> Int {
+    func helper(_ root: TreeNode?, _ maxPath: inout Int) -> Int {
         // base case 
         guard let node = root else { return 0 }
         
-        let left = max(helper(node.left), 0)
-        let right = max(helper(node.right), 0)
+        // do we even gain anything from left side
+        let leftGain = max(helper(node.left, &maxPath), 0)  
+        // do we gain anything from right side
+        let rightGain = max(helper(node.right, &maxPath), 0)
         
-        let pathSum = node.val + left + right           // 41
+        let curPathSum = node.val + leftGain + rightGain
+        // update max
+        maxPath = max(maxPath, curPathSum)         
         
-        maxSoFar = max(maxSoFar, pathSum)         
-        
-        return node.val + max(left, right)
+        // when we return back in recursion, we have to chose left or right gains 
+        return node.val + max(leftGain, rightGain)
     }
 }
