@@ -17,7 +17,8 @@ class Solution {
     func isSubtree(_ root: TreeNode?, _ subRoot: TreeNode?) -> Bool {
         if subRoot == nil {
             return true
-        } else if root == nil {
+        } 
+        if root == nil {
             return false
         }
         
@@ -32,7 +33,8 @@ class Solution {
     func sameTree(_ node1: TreeNode?, _ node2: TreeNode?) -> Bool {
         if node1 == nil && node2 == nil {
             return true
-        } else if node1?.val == node2?.val {
+        } 
+        if node1?.val == node2?.val {
             return (sameTree(node1?.left, node2?.left) && 
                     sameTree(node1?.right, node2?.right))
         } else {
