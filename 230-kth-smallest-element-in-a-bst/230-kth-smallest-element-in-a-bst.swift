@@ -16,7 +16,6 @@
 class Solution {
     var kthItem: Int?
     func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
-        guard let node = root else { return 0 }
         var stack = [TreeNode]()
         var cur = root
         
