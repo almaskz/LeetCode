@@ -16,8 +16,29 @@
 class Solution {
     var kthItem: Int?
     func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
-        let arr = inorder(root, k)
-        return arr[k-1]
+        guard let node = root else { return 0 }
+        var stack = [TreeNode]()
+        var cur = root
+        
+        var count = 0
+        
+        while cur != nil || stack.isEmpty == false {
+            while cur != nil {
+                stack.append(cur!)
+                cur = cur?.left
+            }
+            cur = stack.removeLast()
+            count += 1
+            if count == k {
+                return cur!.val
+            }
+            cur = cur?.right
+        }
+        
+        return cur!.val
+        
+        //let arr = inorder(root, k)
+        //return arr[k-1]
     }
     
     func inorder(_ root: TreeNode?, _ k: Int) -> [Int] {
