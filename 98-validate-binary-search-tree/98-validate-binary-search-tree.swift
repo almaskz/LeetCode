@@ -14,20 +14,28 @@
  * }
  */
 class Solution {
+    //[5,1,4,null,null,3,6]
     func isValidBST(_ root: TreeNode?) -> Bool {
         return helper(root, nil, nil)
     }
     
-    func helper(_ node: TreeNode?, _ lo: Int?, _ hi: Int?) -> Bool {
+    // 5 nil nil
+    // 1 nil, 5
+    // 4 5, nil
+    // 
+    func helper(_ node: TreeNode?, _ minVal: Int?, _ maxVal: Int?) -> Bool {
         guard let node = node else { return true }
-        if let left = lo, left >= node.val {
-            return false
-        } 
-        if let right = hi, right <= node.val {
-            return false
+        
+        if let minBound = minVal {
+            if node.val <= minBound {
+                return false
+            }
         }
-        let left = helper(node.left, lo, node.val)
-        let right = helper(node.right, node.val, hi)
-        return left && right
+        if let maxBould = maxVal {
+            if node.val >= maxBould {
+                return false
+            }
+        }
+        return helper(node.left, minVal, node.val) && helper(node.right, node.val, maxVal)
     }
 }
