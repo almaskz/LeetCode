@@ -25,7 +25,6 @@ class Trie {
     }
     
     func insert(_ word: String) {
-        guard word.isEmpty == false else { return }
         var cur = root
         for char in word {
             if let node = cur.adj[char] {
