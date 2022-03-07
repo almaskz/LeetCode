@@ -18,7 +18,7 @@ class Trie {
     }
     
     typealias Node = TrieNode<Character>
-    var root: Node
+    let root: Node
     
     init() {
         root = Node()
