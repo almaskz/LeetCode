@@ -24,7 +24,7 @@ class Solution {
         guard row >= 0 && row < board.count else { return false }
         guard col >= 0 && col < board[0].count else { return false }
         
-        guard board[row][col] != "#" else { return false }
+        //guard board[row][col] != "#" else { return false }
         guard board[row][col] == word[index] else { return false }
         
         // mark visited
