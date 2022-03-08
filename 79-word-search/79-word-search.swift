@@ -4,10 +4,8 @@ class Solution {
         var arr = Array(word)
         for row in 0..<board.count {
             for col in 0..<board[0].count {
-                if board[row][col] == arr[0] {
-                    if backtracking(0, arr, &board, row, col) {
-                        return true
-                    }
+                if backtracking(0, arr, &board, row, col) {
+                    return true
                 }
             }
         }
@@ -20,11 +18,8 @@ class Solution {
         if index == word.count {
             return true
         }
-        
         guard row >= 0 && row < board.count else { return false }
         guard col >= 0 && col < board[0].count else { return false }
-        
-        //guard board[row][col] != "#" else { return false }
         guard board[row][col] == word[index] else { return false }
         
         // mark visited
