@@ -24,11 +24,11 @@ class Solution {
     func dfs(_ node: TreeNode?, _ sum: Int) -> Int {
         guard let node = node else { return 0 }
     
-        let num = sum*10 + node.val
+        let num = sum + node.val
         if node.left == nil && node.right == nil {
             return num
         }  
         
-        return dfs(node.left, num) + dfs(node.right, num)   
+        return dfs(node.left, num*10) + dfs(node.right, num*10)   
     }
 }
