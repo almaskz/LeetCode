@@ -15,8 +15,10 @@
  */
 class Solution {
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
-        guard let node = root else {return []}
+        guard let node = root else { return [] }
         
-        return inorderTraversal(node.left) + [node.val] + inorderTraversal(node.right)
+        let left = inorderTraversal(node.left)
+        let right = inorderTraversal(node.right)
+        return left + [node.val] + right
     }
 }
