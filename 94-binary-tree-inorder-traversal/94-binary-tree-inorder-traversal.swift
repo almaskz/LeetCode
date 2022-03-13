@@ -16,26 +16,23 @@
 class Solution {
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
         guard let node = root else { return [] }
-        
+        /*
         let left = inorderTraversal(node.left)
         let right = inorderTraversal(node.right)
         return left + [node.val] + right
-        
+        */
         var stack = [TreeNode?]()
-        stack.append(node)
+        var cur: TreeNode? = node
         var result = [Int]()
         
-        while stack.isEmpty == false {
-            var cur: TreeNode? = stack.removeLast()
+        while cur != nil || stack.isEmpty == false {
             while cur != nil {
-                stack.append(cur!)
+                stack.append(cur)
                 cur = cur?.left
             }
-            let pop = stack.removeLast()
-            result.append(pop!.val)
-            if let right = pop!.right {
-                stack.append(right)
-            }
+            cur = stack.removeLast()
+            result.append(cur!.val)
+            cur = cur?.right
         }
         return result
     }
