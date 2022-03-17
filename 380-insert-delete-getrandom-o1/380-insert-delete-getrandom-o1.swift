@@ -1,22 +1,28 @@
 
 class RandomizedSet {
-    private var set = Set<Int>()
+    private var dict = [Int: Int]()         // num : index
+    private var arr = [Int]()
     init() {
         
     }
     
     func insert(_ val: Int) -> Bool {
-        if set.contains(val) {
+        if let index = dict[val] {
             return false
         } else {
-            set.insert(val)
+            arr.append(val)
+            dict[val] = arr.count-1
             return true
         }
     }
     
     func remove(_ val: Int) -> Bool {
-        if set.contains(val) {
-            set.remove(val)
+        if let index = dict[val] {
+            let elemToSwap = arr[arr.count-1]
+            arr.swapAt(index, arr.count-1)
+            arr.removeLast()
+            dict[elemToSwap] = index
+            dict.removeValue(forKey: val)
             return true
         } else {
             return false
@@ -24,7 +30,7 @@ class RandomizedSet {
     }
     
     func getRandom() -> Int {
-        return set.randomElement()!
+        return arr.randomElement()!
     }
 }
 
