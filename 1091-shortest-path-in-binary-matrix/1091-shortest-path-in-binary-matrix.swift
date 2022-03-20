@@ -1,6 +1,5 @@
 class Solution {
     func shortestPathBinaryMatrix(_ grid: [[Int]]) -> Int {
-        guard grid[grid.count-1][grid.count-1] == 0 else {return -1}
         // BFS
         // distance variable to keep track of lenth (levles)
         // - check is cell is n-1 and n-1 we return distance
@@ -26,7 +25,7 @@ class Solution {
         
         while queue.isEmpty == false {                      // (1,0) (1,1),(0,1)
             var nextLevel = [(row: Int, col: Int)]()        
-            
+            distance += 1
             for cur in queue {
                 if visited[cur.row][cur.col] != 0  {
                     continue
@@ -34,7 +33,7 @@ class Solution {
                 visited[cur.row][cur.col] = 1   //     
 
                 if cur.row == kN-1 && cur.col == kN-1 {
-                    return distance + 1
+                    return distance
                 }
 
                 for dir in [(-1, 0),(0,-1),(1,0),(0,1),(1,1),(-1,-1),(1,-1),(-1,1)] {
@@ -49,7 +48,6 @@ class Solution {
                 }
             }
             queue = nextLevel
-            distance += 1
         }
         
         return -1
