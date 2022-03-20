@@ -1,5 +1,6 @@
 class Solution {
     func shortestPathBinaryMatrix(_ grid: [[Int]]) -> Int {
+        guard grid[grid.count-1][grid.count-1] == 0 else {return -1}
         // BFS
         // distance variable to keep track of lenth (levles)
         // - check is cell is n-1 and n-1 we return distance
@@ -8,6 +9,7 @@ class Solution {
         // SC: O(V) -> O(n*n)
         
         var visited = grid
+        
         var distance = 0
         let kN = grid.count
         
