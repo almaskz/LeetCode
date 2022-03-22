@@ -11,7 +11,7 @@
 class Solution {
     func reverseList(_ head: ListNode?) -> ListNode? {
         var prev: ListNode? = nil
-        var cur = head
+        /*var cur: ListNode? = head
         
         while cur != nil {
             let next = cur?.next
@@ -19,6 +19,23 @@ class Solution {
             prev = cur
             cur = next
         }
-        return prev
+        
+        return prev*/
+        return helper(head, prev)
+    }
+    // 1 -> 2 -> 3 -> 4 -> 5 -> nil
+    // 1 -> nil   2-> 3 -> 4 -> 5 -> nil
+    
+    
+    // (1, nil)
+    // (2, 1)
+    func helper(_ node: ListNode?, _ prev: ListNode?) -> ListNode? {
+        // base case 
+        guard let cur = node else { return prev }
+        
+        let next = cur.next         // 2 | 3 
+        cur.next = prev             // 1->nil | 3-> 1 
+        
+        return helper(next, cur)    // (2, 1)
     }
 }
