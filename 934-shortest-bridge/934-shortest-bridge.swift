@@ -15,8 +15,10 @@ class Solution {
     
     func shortestBridge(_ grid: [[Int]]) -> Int {
         // outline:
-        // run DFS to find islands (add them to array of hash set or call isalnd1 and island2)
-        // from island1 run BFS layer by layer to find island2
+        // find 1st land cell 
+        // run DFS to get all the cells related to this island
+        // from island run bfs layer by layer until we reach the other land cell
+        // inclrement distance each layer
         
         let size = grid.count
         let island1 = getIsland(grid) 
