@@ -5,9 +5,10 @@ class Solution {
         var left = 0
         var right = n
         
-        while left < right {
+        while left < right  {
             var top = left
             var bottom = right
+
             for i in 0..<(right-left) {
                 let topLeft = matrix[top][left+i]
                 matrix[top][left+i] = matrix[bottom-i][left]
