@@ -8,11 +8,10 @@ class Solution {
         var maxSoFar = cur
         
         for i in 1..<nums.count {
-            let num = nums[i]
             if cur < 0 {
-                cur = num
+                cur = nums[i]
             } else {
-                cur += num
+                cur += nums[i]
             }
             
             maxSoFar = max(maxSoFar, cur)
