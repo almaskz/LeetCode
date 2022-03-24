@@ -1,11 +1,11 @@
 class Solution {
     func containsDuplicate(_ nums: [Int]) -> Bool {
         var set = Set<Int>()
-        for i in nums {
-            if set.contains(i) {
+        for num in nums {
+            if set.contains(num) {
                 return true
             } else {
-                set.insert(i)
+                set.insert(num)
             }
         }
         return false
