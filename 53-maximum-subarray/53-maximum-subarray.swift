@@ -1,25 +1,23 @@
 class Solution {
     func maxSubArray(_ nums: [Int]) -> Int {
-        //[-2 ]
         //[-2,1,-3,4,-1,2,1,-5,4]
-        //         l           r
-        // cur 1
-        //
-        var maxSum = nums[0]                // -2
-        var l = 0, r = l + 1
+        //                     i
+        // cur = 5
+        // max = 6
+        var cur = nums[0]
+        var maxSoFar = cur
         
-        var curSum = maxSum                 // -2
-        while r < nums.count {              //
-            if curSum + nums[r] < nums[r] { // 
-                curSum = nums[r]            // cur = 4
-                l = r                       // 
+        for i in 1..<nums.count {
+            let num = nums[i]
+            if cur < 0 {
+                cur = num
             } else {
-                curSum += nums[r]           // cur = 1
+                cur += num
             }
-            maxSum = max(maxSum, curSum)    // max = 6
-            r += 1
+            
+            maxSoFar = max(maxSoFar, cur)
         }
         
-        return maxSum
+        return maxSoFar
     }
 }
