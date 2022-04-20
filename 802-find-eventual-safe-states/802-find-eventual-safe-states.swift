@@ -1,32 +1,26 @@
 class Solution {
     func eventualSafeNodes(_ graph: [[Int]]) -> [Int] {
-        // - run dfs on graph with hashmap  
-        // 
         var safe = [Int: Bool]()
         var result = [Int]()
-        
-        func dfs(_ index: Int) -> Bool {
-            if let value = safe[index] {
-                return value
-            }
-            safe[index] = false
-            
-            for nei in graph[index] {
-                if dfs(nei) == false {
-                    return false
-                }
-            }
-            
-            safe[index] = true
-            return true
-        }
-        
         for i in 0..<graph.count {
-            if dfs(i) {
+            if dfs(i, &safe, graph) {
                 result.append(i)
             }
         }
-        
         return result
+    }
+    
+    func dfs(_ index: Int, _ safe: inout [Int: Bool], _ graph: [[Int]]) -> Bool {
+        if let value = safe[index] {
+            return value
+        }
+        safe[index] = false
+        for nei in graph[index] {
+            if dfs(nei, &safe, graph) == false {
+                return false
+            }
+        }
+        safe[index] = true
+        return true
     }
 }
