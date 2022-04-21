@@ -16,7 +16,21 @@
 
 class Solution {
     func connect(_ root: Node?) -> Node? {
-        guard let node = root else { return nil }
+        var cur = root          // cur = 1
+        var next = cur?.left    // next = 2
+        
+        while next != nil {
+            while cur != nil {  // 
+                cur?.left?.next = cur?.right        // 2->3 | 4->5 | 6->7 
+                cur?.right?.next = cur?.next?.left  // 3->nil | 5->6 | 7->nil
+                cur = cur?.next                     // cur = nil | 3 | nil | 
+            }
+            cur = next          // cur = 2  | 4 
+            next = cur?.left    // next = 4 | 
+        }
+        
+        return root
+        /*
         var queue = [node]          // [1] 
         
         while queue.isEmpty == false {          // [4 5 6 7]
@@ -35,5 +49,6 @@ class Solution {
             queue = nextLevel                   // [4 5 6 7]
         }
         return node
+        */
     }
 }
