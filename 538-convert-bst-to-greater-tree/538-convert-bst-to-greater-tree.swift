@@ -15,14 +15,14 @@
  */
 class Solution {
     func convertBST(_ root: TreeNode?) -> TreeNode? {
-        var curSum = 0  //
+        var curSum = 0 
         
         func dfs(_ node: TreeNode?) {
             guard let node = node else { return }
-            dfs(node.right)     //
-            curSum += node.val  // 26
-            node.val = curSum   // 26
-            dfs(node.left)      // 
+            dfs(node.right) 
+            curSum += node.val
+            node.val = curSum
+            dfs(node.left)  
         }
         
         dfs(root)
