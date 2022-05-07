@@ -1,12 +1,17 @@
 class Solution {
     func groupAnagrams(_ strs: [String]) -> [[String]] {
-        var groups = [String: [String]]()
+        var map = [String: [String]]() // hash and its groups
         
         for word in strs {
-            let sorted = String(word.sorted())
-            groups[sorted, default: []].append(word)
+            let sortedHash = String(word.sorted())
+            map[sortedHash, default: [String]()].append(word)
         }
         
-        return Array(groups.values)   
+        var groups = [[String]]()
+        for elem in map {
+            groups.append(elem.value)
+        }
+        
+        return groups
     }
 }
