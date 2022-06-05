@@ -3,10 +3,8 @@ class Solution {
         let mid = num.count/2	
         let arr = Array(num)
         var half = Array(arr[0..<mid])
-        var visited = [Int](repeating: -1, count: 10)
         var pIndex = -1
         for i in stride(from: half.count-1, to: 0, by: -1) {
-            visited[half[i].wholeNumberValue!] = i
             if half[i] > half[i-1] {
                 pIndex = i - 1
                 break
