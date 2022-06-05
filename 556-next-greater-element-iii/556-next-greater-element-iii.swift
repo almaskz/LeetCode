@@ -7,18 +7,14 @@ class Solution {
         // 4. Sort the [pIndex+1...]
         
         var arr = Array("\(n)")
-        var visitedDigits = Array(repeating: -1, count: 10)
         
         var pIndex = -1 
         for i in stride(from: arr.count-1, to: 0, by: -1) {
-            visitedDigits[arr[i].wholeNumberValue!] = i
             if arr[i] > arr[i-1] {
                 pIndex = i - 1 
                 break
             }
         }
-        //2147483486
-        //
         
         if pIndex == -1 {
             return -1
@@ -26,16 +22,22 @@ class Solution {
         
         var eIndexToSwap = 0
         // find the first present number that is greater
-        for i in (arr[pIndex].wholeNumberValue! + 1)..<10 {
-            if visitedDigits[i] != -1 {
-                eIndexToSwap = visitedDigits[i]
+        for i in stride(from: arr.count-1, to: pIndex, by: -1) {
+            if arr[pIndex] < arr[i] {
+                eIndexToSwap = i
                 break
             }
         }
         
+        // 123[4]55321
+        // 123 5 54321
+        // 123 4 12345
+        
+        //1222[2]333
+        //1222 3 233 
         arr.swapAt(pIndex, eIndexToSwap)
-        let sorted = arr[(pIndex+1)...].sorted()
-        let result = arr[0...pIndex] + sorted
+        let reversed = arr[(pIndex+1)...].reversed()
+        let result = arr[0...pIndex] + reversed
         
         let ans = Int(String(result))!
         
