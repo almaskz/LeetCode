@@ -16,16 +16,17 @@ class Solution {
             return ""
         }
         var eIndexToSwap: Int = 0
-        for i in (half[pIndex].wholeNumberValue!+1)...9 {
-            if visited[i] != -1 {
-                eIndexToSwap = visited[i]
+        // find the first (from the right to left) present number that is greater
+        for i in stride(from: half.count-1, to: pIndex, by: -1) {
+            if half[pIndex] < half[i] {
+                eIndexToSwap = i
                 break
             }
         }
         
         half.swapAt(eIndexToSwap, pIndex)
-        let sorted = (half[(pIndex+1)...]).sorted()
-        var final = half[0...pIndex] + sorted
+        let reversedHalf = (half[(pIndex+1)...]).reversed()
+        var final = half[0...pIndex] + reversedHalf
         let reversed = final.reversed()
         if num.count % 2 != 0 {
             final.append(arr[mid])
