@@ -13,11 +13,6 @@ class Solution {
                 return lhs.id > rhs.id
             }
         }
-        
-        /*
-        static func == (lhs: Resturant, rhs: Resturant) -> Bool {
-            return lhs.id == rhs.id
-        }*/
     } 
     
     func filterRestaurants(_ restaurants: [[Int]], _ veganFriendly: Int, _ maxPrice: Int, _ maxDistance: Int) -> [Int] {
@@ -31,11 +26,9 @@ class Solution {
                 price: item[3],
                 distance: item[4]
             )
-            if rest.price <= maxPrice && rest.distance <= maxDistance {
-                if (veganFriendly == 1 && rest.veganFriendly == veganFriendly) ||
-                    veganFriendly == 0 {
-                    filted.append(rest)      
-                }
+            if (veganFriendly == 0 || rest.veganFriendly == veganFriendly) && 
+                rest.price <= maxPrice && rest.distance <= maxDistance {    
+                filted.append(rest)      
             }
         }
         
